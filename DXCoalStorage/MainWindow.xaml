@@ -1,0 +1,13 @@
+﻿<dx:ThemedWindow
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+      xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid" xmlns:local1="clr-namespace:DXCoalStorage.Views"
+    x:Class="DXCoalStorage.MainWindow"
+    Title="Угольный склад" Height="600" Width="650" MinWidth="600" MaxWidth="1000" MinHeight="300" MaxHeight="900" WindowStartupLocation="CenterScreen" WindowStyle="ToolWindow" >
+    
+    <Grid>
+        <local1:WarehouseView>
+        </local1:WarehouseView>
+    </Grid>
+</dx:ThemedWindow>

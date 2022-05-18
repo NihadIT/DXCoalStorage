@@ -1,0 +1,105 @@
+﻿<UserControl
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm" xmlns:ViewModels="clr-namespace:DXCoalStorage.ViewModels"
+             xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid" xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core" x:Name="userControl" x:Class="DXCoalStorage.Views.WarehouseView"
+             xmlns:local="clr-namespace:DXCoalStorage.ViewModels" xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors" xmlns:Views="clr-namespace:DXCoalStorage.Views" d:DataContext="{d:DesignInstance Type=ViewModels:WarehouseViewModel}"
+    mc:Ignorable="d"
+             d:DesignHeight="400" d:DesignWidth="550"
+    DataContext="{dxmvvm:ViewModelSource Type=ViewModels:WarehouseViewModel}">
+    <Grid>
+        <dxmvvm:Interaction.Behaviors>
+            <dxmvvm:WindowService>
+                <dxmvvm:WindowService.ViewTemplateSelector>
+                    <ViewModels:TestDataTemplateSelector>
+                        <ViewModels:TestDataTemplateSelector.HistoryViewModel>
+                            <DataTemplate>
+                                <Views:HistoryView/>
+                            </DataTemplate>
+                        </ViewModels:TestDataTemplateSelector.HistoryViewModel>
+                        <ViewModels:TestDataTemplateSelector.UpdateViewModel>
+                            <DataTemplate>
+                                <Views:UpdateView/>
+                            </DataTemplate>
+                        </ViewModels:TestDataTemplateSelector.UpdateViewModel>
+                    </ViewModels:TestDataTemplateSelector>
+                </dxmvvm:WindowService.ViewTemplateSelector>
+                <dxmvvm:WindowService.WindowStyle>
+                    <Style TargetType="dx:ThemedWindow">
+                        <Setter Property="Width" Value="620" />
+                        <Setter Property="Height" Value="400" />
+                        <Setter Property="MinWidth" Value="600" />
+                        <Setter Property="MinHeight" Value="300" />
+                        <Setter Property="MaxWidth" Value="800" />
+                        <Setter Property="MaxHeight" Value="700" />
+                        <Setter Property="WindowStyle" Value="ToolWindow" />
+                        <Setter Property="Title" Value="{Binding Caption}" />
+                    </Style>
+                </dxmvvm:WindowService.WindowStyle>
+            </dxmvvm:WindowService>
+        </dxmvvm:Interaction.Behaviors>
+        
+        <!--GridControll -->
+        <dxg:GridControl Name="grid"
+                         EnableSmartColumnsGeneration="True"
+                         ItemsSource="{Binding TQuantity}">
+            <dxg:GridControl.View>
+                <dxg:TableView AllowEditing="True" AutoWidth="True"
+                               RowDoubleClickCommand="{Binding RowDoubleClickCommand}">
+                    <dxg:TableView.ColumnHeaderStyle>
+                        <Style TargetType="dxg:BaseGridHeader">
+                            <Setter Property="FontWeight" Value="Bold" />
+                            <Setter Property="dxg:BaseGridColumnHeader.ShowFilterButtonOnHover" Value="False" />
+                        </Style>
+                    </dxg:TableView.ColumnHeaderStyle>
+                </dxg:TableView>
+            </dxg:GridControl.View>
+            <dxg:GridColumn  FieldName="WarehouseNumber"
+                             HorizontalHeaderContentAlignment="Stretch"
+                             AllowEditing="false" Width="110" 
+                             MinWidth="50"
+                             AllowResizing ="true"
+                             FixedWidth="True"
+                             IsSmart="True">
+                <dxg:GridColumn.EditSettings>
+                    <dxe:TextEditSettings HorizontalContentAlignment="Left"/>
+                </dxg:GridColumn.EditSettings>
+            </dxg:GridColumn>
+
+            <dxg:GridColumn FieldName="PicketNumber" IsSmart="True"
+                             Header="Количество пикетов"
+                             AllowEditing="false" Width="150"
+                             MinWidth="50" MaxWidth="200"
+                             AllowResizing ="true"
+                             FixedWidth="True">
+                <dxg:GridColumn.EditSettings>
+                    <dxe:TextEditSettings HorizontalContentAlignment="Left"/>
+                </dxg:GridColumn.EditSettings>
+            </dxg:GridColumn>
+
+            <dxg:GridColumn x:Name="SiteCb" FieldName="SiteNumber"
+                            Header="Количество площадок"
+                            IsSmart="True" 
+                            AllowEditing="false" Width="150"
+                            MinWidth="80" MaxWidth="200" 
+                            AllowResizing ="true"
+                            FixedWidth="True">
+            </dxg:GridColumn>
+
+            <dxg:GridColumn FieldName="Cargo" IsSmart="True"
+                            Header="Сумма груза"
+                            AllowEditing="false"
+                            MinWidth="100" MaxWidth="200"
+                            AllowResizing ="true">
+                <dxg:GridColumn.EditSettings>
+                    <dxe:TextEditSettings HorizontalContentAlignment="Left"/>
+                </dxg:GridColumn.EditSettings>
+            </dxg:GridColumn>
+        </dxg:GridControl>
+        <Button VerticalAlignment="Top"
+                Command="{Binding ShowHistoryCommand}"
+                Margin="430,7,0,0" Width="120">История</Button>
+    </Grid>
+</UserControl>
